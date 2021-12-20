@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE-edge">
+    <meta name="author" content="Alvin Rahmatilasyah 2172016">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>index</title>
+    <style>
+        .b{
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .score{
+            display: flex;
+            width: 30vw;
+            justify-content: space-evenly;
+            position: absolute;
+            top: 70px;
+            z-index: 1;
+        }
+        td{
+            border: 1px solid black;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding-left: 0px;
+            column-span: 0px;
+        }
+        .result{
+            width: 350px;
+            height: 100px;
+            border: 1px solid black;
+            text-align: center;
+            transform: translateX(1px) translateY(1px);
+            margin-top: 50px;
+        }
+        /* Score  */
+        .p-count,.c-count{
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .options{
+            display: flex;
+            width: 50vw;
+            justify-content: space-evenly;
+        }
+        .gunting, .kertas, .batu{
+            width: 100px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .move{
+            font-size: 20px;
+            width: 60px;
+            height: 40px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .title{
+            text-align: center;
+        }
+        .score{
+            position: absolute;
+            top: 200px;
+            width: 100vw;
+        }
+        .options{
+            width: 100vw;
+        }
+</style>
+<body>
+    <section class="b">
+        <div class="score">  
+            <div class="movesleft">
+                <table> 
+                    <tr> 
+                        <td> P </td> <td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td>
+                    </tr>
+                    <tr> 
+                        <td> E </td> <td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td>
+                    </tr>
+                 </table>
+            </div>       
+        </div>
+        
+        <div class="result"></div>
+        <br>
+        <div class="options">
+            <button class="rock">Rock</button>
+            <button class="paper">Paper</button>
+            <button class="scissor">Scissors</button>    
+        </div>  
+    </section>
+  
+    <script>
+        const game = () => {
+        let playerScore = 0;
+        let computerScore = 0;
+        let moves = 0;
+  
+        const playGame = () => {
+            const rockBtn = document.querySelector('.rock');
+            const paperBtn = document.querySelector('.paper');
+            const scissorBtn = document.querySelector('.scissor');
+            const playerOptions = [rockBtn,paperBtn,scissorBtn];
+            const computerOptions = ['rock','paper','scissors']
+            
+            playerOptions.forEach(option => {
+                option.addEventListener('click',function(){
+    
+                    const movesLeft = document.querySelector('.movesleft');
+                    moves++;
+                    movesLeft.innerText = `Player Moves Right: ${10-moves}`;
+                    
+    
+                    const choiceNumber = Math.floor(Math.random()*3);
+                    const computerChoice = computerOptions[choiceNumber];
+                    winner(this.innerText,computerChoice)
+                    if(moves == 10){
+                        gameOver(playerOptions,movesLeft);
+                    }
+                })
+            })    
+        }
+        const winner = (player,computer) => {
+            const result = document.querySelector('.result');
+            const playerScoreBoard = document.querySelector('.p-count');
+            const computerScoreBoard = document.querySelector('.c-count');
+            player = player.toLowerCase();
+            computer = computer.toLowerCase();
+            if(player === computer){
+                result.textContent = 'Draw'
+            }
+            else if(player == 'rock'){
+                if(computer == 'paper'){
+                    result.textContent = 'Computer maju';
+                    computerScore++;
+                    computerScoreBoard.textContent = computerScore;
+    
+                }else{
+                    result.textContent = 'Player maju'
+                    playerScore++;
+                    playerScoreBoard.textContent = playerScore;
+                }
+            }
+            else if(player == 'scissors'){
+                if(computer == 'rock'){
+                    result.textContent = 'Computer maju';
+                    computerScore++;
+                    computerScoreBoard.textContent = computerScore;
+                }else{
+                    result.textContent = 'Player maju';
+                    playerScore++;
+                    playerScoreBoard.textContent = playerScore;
+                }
+            }
+            else if(player == 'paper'){
+                if(computer == 'scissors'){
+                    result.textContent = 'Computer maju';
+                    computerScore++;
+                    computerScoreBoard.textContent = computerScore;
+                }else{
+                    result.textContent = 'Player maju';
+                    playerScore++;
+                    playerScoreBoard.textContent = playerScore;
+                }
+            }
+        }
+    
+        // Function to run when game is over
+        const gameOver = (playerOptions,movesLeft) => {
+    
+            const chooseMove = document.querySelector('.move');
+            const result = document.querySelector('.result');
+            const reloadBtn = document.querySelector('.reload');
+    
+            playerOptions.forEach(option => {
+                option.style.display = 'none';
+            })
+    
+        
+            chooseMove.innerText = 'Game Over'
+            movesLeft.style.display = 'none';
+    
+            if(playerScore > computerScore){
+                result.innerText = 'You Win!'
+            }
+            else if(playerScore < computerScore){
+                result.innerText = 'You Lose!';
+            }
+            else{
+                result.innerText = 'Tie';
+                result.style.color = 'grey'
+            }  
+        }
+        playGame();  
+    }
+    game();
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE-edge">
+    <meta name="author" content="Alvin Rahmatilasyah 2172016">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>index</title>
+    <style>
+        body {
+            background-color: rgba(199, 197, 197, 0.686)
+        }
+        .k1 {
+            border: 1px solid black;
+            width: 400px;
+            height: 50px;
+            color: black;
+            background-color: white;
+            justify-content: center;
+            text-align: center;
+            padding-top: 20px;
+            font-size: 20px;
+            transform: translateX(300px) translateY(300px);
+        }
+        .kj {
+            width: 200px;
+            height: 10px;
+            display: inline-block;
+            color: black;
+            text-align: center;
+            transform: translateX(200px) translateY(300px);
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        .kotak {
+            border: 1px solid black;
+            width: 200px;
+            height: 50px;
+            display: inline-block;
+            color: black;
+            background-color: white;
+            transform: translateX(200px) translateY(300px);
+            text-align: center;
+            padding-top: 20px;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class= "k1" onkeypress>Press any key to get the keyCode</div>
+
+    <div class= "kj"> event.key </div>
+    <div class= "kj"> event.keyCode </div>
+    <div class= "kj"> event.code </div> 
+    <br>
+
+    <div class= "kotak" id= "1"> </div>
+    <div class= "kotak" id= "2"> </div>
+    <div class= "kotak" id= "3"> </div>
+
+    <script>
+        $(".kotak").hide()
+        $(".kj").hide()
+        let isi1 = document.getElementById("1");
+        let isi2 = document.getElementById("2");
+        let isi3 = document.getElementById("3");
+
+        document.addEventListener('keyup', (e)=> {
+            isi1.innerHTML = e.key;
+            isi2.innerHTML = e.keyCode;
+            isi3.innerHTML = e.code; 
+            $(".k1").hide(onkeypress) ;
+            $(".kotak").show(onkeypress) ;
+            $(".kj").show(onkeypress) ;
+        })
+    </script>
+</body>
+</html>
